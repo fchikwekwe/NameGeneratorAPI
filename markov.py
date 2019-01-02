@@ -14,7 +14,6 @@ def cleanup(text):
     """ takes in a text file, opens it and cleans text using regex. outputs
     string of cleaned text """
     with open(text, 'r') as uncleaned_text:
-        # print(source_text.read())
         no_chapters = re.sub('[A-Z]{3,}', ' ', uncleaned_text.read())
         remove_periods = re.sub('(\s\.){4,}', '', no_chapters)
         new_text = re.sub('\*', '', remove_periods)
@@ -22,7 +21,8 @@ def cleanup(text):
 
 def tokenize(text):
     """ takes in cleaned text as string and makes it into a list of tokens """
-    source = text.split()
+    source = list(text.rstrip().replace('\n', ' '))
+    print(source)
     return source
 
 # takes in list of words
@@ -78,40 +78,39 @@ def stop_token(dictionary):
     for key, value in dictionary.items():
         # the key number must be changed depending on order number
         if key[2].endswith('.') or key[2].endswith('?'):
-            # print("word with .", key)
             stop_tokens.append(key)
     return stop_tokens
 
-def create_sentence(start_token, stop_tokens, dictionary):
+def create_name(start_token, dictionary):
     """ takes dictionary, start and end tokens and makes a sentence """
     # create sentence and add first word
-    sentence = []
-    # this is hard coded; must be changed to fit the order number; currently third
-    (word1, word2, word3) = start_token
-    sentence.append(word1)
-    sentence.append(word2)
-    sentence.append(word3)
-    # print("There should be three words", sentence)
+    name = []
+    # this is hard coded; must be changed to fit the order number; currently second
+    (letter1, letter2) = start_token
+    print("start_token", start_token)
+
+    name.append(letter1)
+    name.append(letter2)
 
     current_token = start_token
-    # print("This is my dictionary", dictionary)
     # stop when current_token is a stop token
-    while current_token not in stop_tokens or len(sentence) <= 8:
+    while not current_token[1].isspace():
+        print("current token", current_token)
         for key, value in dictionary.items():
             if key == current_token:
                 # sample from histogram of values
                 cumulative = sample.cumulative_distribution(value)
-                sample_word = sample.sample(cumulative)
-                # add new sample to sentence_list
-                sentence.append(sample_word)
+                sample_letter = sample.sample(cumulative)
+                # add new sample to name_list
+                name.append(sample_letter)
                 # assign second word of key and value to current token
                 # this is hard coded; must be changed to fit the order number
                 # I am unpacking the current token
-                (current_token_one, current_token_two, current_token_three) = current_token
-                current_token = (current_token_two, current_token_three, sample_word)
+                (current_token_one, current_token_two) = current_token
+                current_token = (current_token_two, sample_letter)
                 # get out of for loop and start process over
                 break
-    return sentence
+    return name
 
 def logger(file):
     f = open(file, "a")
@@ -123,17 +122,17 @@ def logger(file):
 
 def main(text_list):
     """ calling functions and defining variables """
-    dictionary = nth_order_markov(3, text_list)
-    first_word = start_token(dictionary)
-    end_words = stop_token(dictionary)
-    markov_list = create_sentence(first_word, end_words, dictionary)
-    markov_sentence = " ".join(markov_list)
-    # print(markov_sentence)
-    return markov_sentence
+    dictionary = nth_order_markov(2, text_list)
+    first_letter = start_token(dictionary)
+    # end_words = stop_token(dictionary)
+    markov_list = create_name(first_letter, dictionary)
+    first_name = " ".join(markov_list)
+    print('Result: ', first_name)
+    return first_name
 
 if __name__ == '__main__':
     # start_time = time.process_time()
-    source_text = 'corpus.txt'
+    source_text = 'names.txt'
     clean_text = cleanup(source_text)
     text_list = tokenize(clean_text)
     main(text_list)
