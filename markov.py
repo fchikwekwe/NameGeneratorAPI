@@ -132,7 +132,7 @@ def main(text_list):
 
 if __name__ == '__main__':
     # start_time = time.process_time()
-    source_text = 'names.txt'
+    source_text = 'app_names.txt'
     clean_text = cleanup(source_text)
     text_list = tokenize(clean_text)
     main(text_list)
