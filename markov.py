@@ -81,7 +81,15 @@ def stop_token(dictionary):
             stop_tokens.append(key)
     return stop_tokens
 
-def create_name(start_token, dictionary):
+def check_names(text):
+    """ creates list of names that were in original list to check against
+        so that the new name is not a duplicate of names in the list"""
+    with open(text, 'r') as names:
+        list_of_names = list(names)
+        name_list = [name.strip() for name in list_of_names]
+    return name_list
+
+def create_name(already_names, start_token, dictionary):
     """ takes dictionary, start and end tokens and makes a sentence """
     # create sentence and add first word
     name = []
@@ -94,7 +102,7 @@ def create_name(start_token, dictionary):
 
     current_token = start_token
     # stop when current_token is a stop token
-    while not current_token[1].isspace():
+    while not current_token[1].isspace() and len(name) <= 15:
         print("current token", current_token)
         for key, value in dictionary.items():
             if key == current_token:
@@ -120,12 +128,12 @@ def logger(file):
     Program ran in {} seconds.""".format(datetime.datetime.now(), time.process_time() - start_time))
     return 'hello'
 
-def main(text_list):
+def main(check_names, text_list):
     """ calling functions and defining variables """
+
     dictionary = nth_order_markov(2, text_list)
     first_letter = start_token(dictionary)
-    # end_words = stop_token(dictionary)
-    markov_list = create_name(first_letter, dictionary)
+    markov_list = create_name(text_list, first_letter, dictionary)
     first_name = " ".join(markov_list)
     print('Result: ', first_name)
     return first_name
@@ -135,6 +143,7 @@ if __name__ == '__main__':
     source_text = 'app_names.txt'
     clean_text = cleanup(source_text)
     text_list = tokenize(clean_text)
-    main(text_list)
+    name_list = check_names(source_text)
+    main(name_list, text_list)
 
     # logger('markov_logger.txt')
