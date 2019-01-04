@@ -3,9 +3,10 @@ it into a markov chain. The output is made into a sentence based on the
 conditions established below. The entire process can also be benchmarked for
 improving algorithmic speed """
 
-import re # so that we can do text cleanup
+import json # to decode and encode JSON data from main app
+import re # regex so that we can do text cleanup
 import time # needed to record performance time
-import datetime # needed to record when trials are done
+import datetime # needed to record timestamp when trials are done
 import random
 import sample # to get words for sentence
 from dictogram import Dictogram
@@ -22,7 +23,6 @@ def cleanup(text):
 def tokenize(text):
     """ takes in cleaned text as string and makes it into a list of tokens """
     source = list(text.rstrip().replace('\n', ' '))
-    print(source)
     return source
 
 # takes in list of words
@@ -81,7 +81,7 @@ def stop_token(dictionary):
             stop_tokens.append(key)
     return stop_tokens
 
-def check_names(text):
+def list_names(text):
     """ creates list of names that were in original list to check against
         so that the new name is not a duplicate of names in the list"""
     with open(text, 'r') as names:
@@ -95,7 +95,6 @@ def create_name(already_names, start_token, dictionary):
     name = []
     # this is hard coded; must be changed to fit the order number; currently second
     (letter1, letter2) = start_token
-    print("start_token", start_token)
 
     name.append(letter1)
     name.append(letter2)
@@ -103,7 +102,6 @@ def create_name(already_names, start_token, dictionary):
     current_token = start_token
     # stop when current_token is a stop token
     while not current_token[1].isspace() and len(name) <= 15:
-        print("current token", current_token)
         for key, value in dictionary.items():
             if key == current_token:
                 # sample from histogram of values
@@ -128,22 +126,30 @@ def logger(file):
     Program ran in {} seconds.""".format(datetime.datetime.now(), time.process_time() - start_time))
     return 'hello'
 
-def main(check_names, text_list):
+def main(name_list, text_list):
     """ calling functions and defining variables """
+    while True:
+        dictionary = nth_order_markov(2, text_list)
+        first_letter = start_token(dictionary)
+        markov_list = create_name(text_list, first_letter, dictionary)
+        # make word and remove whitespace
+        first_name = "".join(markov_list).strip()
+        # check if name is match for any name in list; if so, start over
+        if first_name in name_list:
+            print("not valid name", first_name)
+            continue
 
-    dictionary = nth_order_markov(2, text_list)
-    first_letter = start_token(dictionary)
-    markov_list = create_name(text_list, first_letter, dictionary)
-    first_name = " ".join(markov_list)
-    print('Result: ', first_name)
-    return first_name
+        # return the valid name
+        print(repr(first_name))
+        return first_name
+
 
 if __name__ == '__main__':
     # start_time = time.process_time()
-    source_text = 'app_names.txt'
+    source_text = 'modern.txt'
     clean_text = cleanup(source_text)
     text_list = tokenize(clean_text)
-    name_list = check_names(source_text)
+    name_list = list_names(source_text)
     main(name_list, text_list)
 
     # logger('markov_logger.txt')

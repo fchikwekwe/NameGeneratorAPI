@@ -14,8 +14,7 @@ Yelp
 LinkedIn
 Shazam
 Spotify
-Angry
-Birds
+AngryBirds
 Netflix
 Hulu
 Opera
