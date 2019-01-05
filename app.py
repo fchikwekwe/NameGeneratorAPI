@@ -21,6 +21,6 @@ def index():
 
 def return_json():
     """ returns json result """
-    json_name = markov.main(TEXT_LIST)
+    json_name = markov.main(NAME_LIST, TEXT_LIST)
 
     return jsonify(json_name)
