@@ -11,6 +11,17 @@ import random
 import sample # to get words for sentence
 from dictogram import Dictogram
 
+def copy_text(input_text, output_text):
+    """ copies text from input file to corpus file """
+    with open(input_text, 'r') as in_text, open(output_text, 'a') as out_text:
+        out_text.write(in_text.read())
+
+def make_source_text(input_one, input_two, input_three, output_text):
+    open('file.txt', 'w').close()
+    copy_text(input_one, output_text)
+    copy_text(input_two, output_text)
+    copy_text(input_three, output_text)
+
 def cleanup(text):
     """ takes in a text file, opens it and cleans text using regex. outputs
     string of cleaned text """
@@ -95,7 +106,6 @@ def create_name(already_names, start_token, dictionary):
     name = []
     # this is hard coded; must be changed to fit the order number; currently second
     (letter1, letter2) = start_token
-
     name.append(letter1)
     name.append(letter2)
 
@@ -146,7 +156,7 @@ def main(name_list, text_list):
 
 if __name__ == '__main__':
     # start_time = time.process_time()
-    source_text = 'modern.txt'
+    source_text = 'name.txt'
     clean_text = cleanup(source_text)
     text_list = tokenize(clean_text)
     name_list = list_names(source_text)
