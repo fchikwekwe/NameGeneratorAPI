@@ -133,12 +133,14 @@ def create_name(already_names, start_token, dictionary):
                 break
     return name
 
-def logger(file):
+def logger(start_time, file):
+    """ Benchmarking to improve performance """
     f = open(file, "a")
     f.write("""
 
     Current date and time: {}
     Program ran in {} seconds.""".format(datetime.datetime.now(), time.process_time() - start_time))
+    
     return 'hello'
 
 def main(name_list, text_list):
@@ -162,9 +164,9 @@ def main(name_list, text_list):
 if __name__ == '__main__':
     # start_time = time.process_time()
     CORPUS = make_source_text('girl.txt', 'app_names.txt', 'modern.txt', 'corpus.txt')
-    # CLEAN_TEXT = cleanup(CORPUS)
-    # TEXT_LIST = tokenize(CLEAN_TEXT)
-    # NAME_LIST = list_names(CORPUS)
-    # main(NAME_LIST, TEXT_LIST)
+    CLEAN_TEXT = cleanup(CORPUS)
+    TEXT_LIST = tokenize(CLEAN_TEXT)
+    NAME_LIST = list_names(CORPUS)
+    main(NAME_LIST, TEXT_LIST)
 
-    # logger('markov_logger.txt')
+    # logger(start_time, 'markov_logger.txt')
