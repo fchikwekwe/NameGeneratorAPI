@@ -78,14 +78,14 @@ def nth_order_markov(order, text_list):
     # return dictionary
     return markov_dict
 
-def start_token(dictionary):
+def start_tokens(dictionary):
     """ Get words that can start a sentence; this method is O(n) worst case
     because one must check every word in the corpus"""
-    start_tokens = []
+    start_token_list = []
     for key in dictionary:
         if key[0].islower() is False and key[0].endswith('.') is False:
-            start_tokens.append(key)
-    token = random.choice(start_tokens)
+            start_token_list.append(key)
+    token = random.choice(start_token_list)
     return token
 
 def stop_token(dictionary):
@@ -105,7 +105,7 @@ def list_names(text):
         name_list = [name.strip() for name in list_of_names]
     return name_list
 
-def create_name(already_names, start_token, dictionary):
+def create_name(start_token, dictionary):
     """ takes dictionary, start and end tokens and makes a sentence """
     # create sentence and add first word
     name = []
@@ -135,20 +135,21 @@ def create_name(already_names, start_token, dictionary):
 
 def logger(start_time, file):
     """ Benchmarking to improve performance """
-    f = open(file, "a")
-    f.write("""
+    with open(file, "a") as text:
+        text.write("""
 
-    Current date and time: {}
-    Program ran in {} seconds.""".format(datetime.datetime.now(), time.process_time() - start_time))
-    
+        Current date and time: {}
+        Program ran in {} seconds.
+        """.format(datetime.datetime.now(), time.process_time() - start_time))
+
     return 'hello'
 
 def main(name_list, text_list):
     """ calling functions and defining variables """
     while True:
         dictionary = nth_order_markov(2, text_list)
-        first_letter = start_token(dictionary)
-        markov_list = create_name(text_list, first_letter, dictionary)
+        first_letter = start_tokens(dictionary)
+        markov_list = create_name(first_letter, dictionary)
         # make word and remove whitespace
         first_name = "".join(markov_list).strip()
         # check if name is match for any name in list; if so, start over
