@@ -17,10 +17,15 @@ def copy_text(input_text, output_text):
         out_text.write(in_text.read())
 
 def make_source_text(input_one, input_two, input_three, output_text):
-    open('file.txt', 'w').close()
+    """ Clear out the output file, copy text from the input files and return
+    the file with new contents"""
+    # clear out the previous file contents
+    open(output_text, 'w').close()
+    # copy from three input files based on question answers
     copy_text(input_one, output_text)
     copy_text(input_two, output_text)
     copy_text(input_three, output_text)
+    return output_text
 
 def cleanup(text):
     """ takes in a text file, opens it and cleans text using regex. outputs
@@ -156,10 +161,10 @@ def main(name_list, text_list):
 
 if __name__ == '__main__':
     # start_time = time.process_time()
-    source_text = 'name.txt'
-    clean_text = cleanup(source_text)
-    text_list = tokenize(clean_text)
-    name_list = list_names(source_text)
-    main(name_list, text_list)
+    CORPUS = make_source_text('girl.txt', 'app_names.txt', 'modern.txt', 'corpus.txt')
+    # CLEAN_TEXT = cleanup(CORPUS)
+    # TEXT_LIST = tokenize(CLEAN_TEXT)
+    # NAME_LIST = list_names(CORPUS)
+    # main(NAME_LIST, TEXT_LIST)
 
     # logger('markov_logger.txt')
