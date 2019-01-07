@@ -1,5 +1,5 @@
 import markov
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, json
 
 app = Flask(__name__)
 
@@ -9,14 +9,18 @@ CLEANED_TEXT = markov.cleanup(SOURCE_TEXT)
 TEXT_LIST = markov.tokenize(CLEANED_TEXT)
 
 @app.route('/', methods=['GET', 'POST'])
-def json():
+def parse_json():
     """ takes in POST data from Node app and dumps JSON values to make them
     accessible to rest of Flask app """
+    if request.method == 'GET': # only executed with HTTP GET requests
+        return "Please send a POST request to use this application."
+
     params = {
-        'questionOne': request.get_json.get('questionOne'),
-        'questionTwo': request.get_json.get('questionTwo'),
-        'questionThree': request.get_json.get('questionThree')
+        'questionOne': request.get_json('questionOne'),
+        'questionTwo': request.get_json('questionTwo'),
+        'questionThree': request.get_json('questionThree')
     }
+
     print(json.dumps(params))
     return json.dumps(params)
 
