@@ -144,30 +144,39 @@ def logger(start_time, file):
 
     return 'hello'
 
-def main(name_list, text_list):
-    """ calling functions and defining variables """
+def main(input_one, input_two, input_three, output):
+    """ takes in three text file names as first three parameters
+        takes in output (corpus) file name as the final value
+        defines variables and calls functions sequentially
+
+        returns generated name(s) """
+
+    # Make and clean up corpus
+    corpus = make_source_text(input_one, input_two, input_three, output)
+    clean_text = cleanup(corpus)
+    text_list = tokenize(clean_text)
+    name_list = list_names(corpus)
+
+    # Loop until a unique name has been created
     while True:
         dictionary = nth_order_markov(2, text_list)
         first_letter = start_tokens(dictionary)
         markov_list = create_name(first_letter, dictionary)
-        # make word and remove whitespace
+        # Make word and remove whitespace
         first_name = "".join(markov_list).strip()
-        # check if name is match for any name in list; if so, start over
+        # Check if name is match for any name in list; if so, start over
         if first_name in name_list:
             print("not valid name", first_name)
             continue
 
-        # return the valid name
+        # Return the valid name
         print(repr(first_name))
         return first_name
 
 
 if __name__ == '__main__':
     # start_time = time.process_time()
-    CORPUS = make_source_text('girl.txt', 'app_names.txt', 'modern.txt', 'corpus.txt')
-    CLEAN_TEXT = cleanup(CORPUS)
-    TEXT_LIST = tokenize(CLEAN_TEXT)
-    NAME_LIST = list_names(CORPUS)
-    main(NAME_LIST, TEXT_LIST)
+    # pass in text names as first three values and output corpus as final value
+    main('girl.txt', 'app_names.txt', 'modern.txt', 'corpus.txt')
 
     # logger(start_time, 'markov_logger.txt')
