@@ -13,9 +13,9 @@ def json():
     """ takes in POST data from Node app and dumps JSON values to make them
     accessible to rest of Flask app """
     params = {
-        'questionOne': request.values.get('questionOne'),
-        'questionTwo': request.values.get('questionTwo'),
-        'questionThree': request.values.get('questionThree')
+        'questionOne': request.get_json.get('questionOne'),
+        'questionTwo': request.get_json.get('questionTwo'),
+        'questionThree': request.get_json.get('questionThree')
     }
     print(json.dumps(params))
     return json.dumps(params)
