@@ -21,8 +21,8 @@ def parse_json():
     questionTwo = params['questionTwo']
     questionThree = params['questionThree']
 
-    print(json.dumps(questionOne))
-    return json.dumps(questionOne)
+    print(questionOne)
+    return questionOne
 
 @app.route('/index')
 def index():
