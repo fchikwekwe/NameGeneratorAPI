@@ -15,14 +15,14 @@ def parse_json():
     if request.method == 'GET': # only executed with HTTP GET requests
         return "Please send a POST request to use this application."
 
-    params = {
-        'questionOne': request.get_json('questionOne'),
-        'questionTwo': request.get_json('questionTwo'),
-        'questionThree': request.get_json('questionThree')
-    }
+    params = request.json()
 
-    print(json.dumps(params))
-    return json.dumps(params)
+    questionOne = params['questionOne']
+    questionTwo = params['questionTwo']
+    questionThree = params['questionThree']
+
+    print(json.dumps(questionOne))
+    return json.dumps(questionOne)
 
 @app.route('/index')
 def index():
