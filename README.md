@@ -10,7 +10,7 @@ To see this API at work, check out https://name-ly-api.herokuapp.com/api for JSO
 
 To run the app locally, after cloning this repo and running your virtual environment the app can be viewed at http://127.0.0.1:5000/api or http://127.0.0.1:5000/index to see JSON or a web template respectively.
 
-To use the api, you can send a POST request (e.g. using POSTMAN) to the root route (http://127.0.0.1:5000) as JSON. It takes in three parameters: 'gender', 'culture' and 'literary'. These are named for the types of influences requested of the user in their submitted form.  
+To use the api, you can send a POST request (e.g. with POSTMAN, as a query string) to the root route (http://127.0.0.1:5000) as JSON. It takes in three parameters: 'gender', 'culture' and 'literary'. These are named for the types of influences requested of the user in their submitted form.  
 
 ## Testing
 [WIP] This API uses Pytest for testing.

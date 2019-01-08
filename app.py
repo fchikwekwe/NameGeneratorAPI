@@ -19,6 +19,7 @@ def parse_json():
     cultural = params['cultural'] + '.txt'
     literary = params['literary'] + '.txt'
 
+    print("Main function call {}".format(markov.main(gender, cultural, literary, 'corpus.txt')))
     return markov.main(gender, cultural, literary, 'corpus.txt')
 
 @app.route('/index')
