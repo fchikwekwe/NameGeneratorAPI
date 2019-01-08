@@ -3,7 +3,6 @@ it into a markov chain. The output is made into a sentence based on the
 conditions established below. The entire process can also be benchmarked for
 improving algorithmic speed """
 
-import json # to decode and encode JSON data from main app
 import re # regex so that we can do text cleanup
 import time # needed to record performance time
 import datetime # needed to record timestamp when trials are done
@@ -176,6 +175,7 @@ def main(input_one, input_two, input_three, output):
 
 if __name__ == '__main__':
     # start_time = time.process_time()
+
     # pass in text names as first three values and output corpus as final value
     main('girl.txt', 'app_names.txt', 'modern.txt', 'corpus.txt')
 

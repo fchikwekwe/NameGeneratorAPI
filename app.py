@@ -23,13 +23,13 @@ def parse_json():
 
 @app.route('/index')
 def index():
-    """ demonstrates api; returns a web template"""
+    """ Demonstration of api; returns a web template"""
     index_name = markov.main('girl.txt', 'app_names.txt', 'modern.txt', 'corpus.txt')
     return render_template('index.html', index_name=index_name)
 
 
 @app.route('/api')
 def return_json():
-    """ demonstrates api; returns json result """
+    """ Demonstration of api; returns json result """
     json_name = markov.main('girl.txt', 'app_names.txt', 'modern.txt', 'corpus.txt')
     return jsonify(json_name)
