@@ -5,7 +5,6 @@ app = Flask(__name__)
 
 
 @app.route('/', methods=['GET', 'POST'])
-
 def parse_json():
     """ takes in POST data as JSON from Node app and converts values to make
     them accessible to rest of Flask app """
@@ -19,8 +18,8 @@ def parse_json():
     cultural = params['cultural'] + '.txt'
     literary = params['literary'] + '.txt'
 
-    print("Main function call {}".format(markov.main(gender, cultural, literary, 'corpus.txt')))
-    return markov.main(gender, cultural, literary, 'corpus.txt')
+    markov_name = markov.main(gender, cultural, literary, 'corpus.txt')
+    return jsonify(name=markov_name)
 
 @app.route('/index')
 def index():
