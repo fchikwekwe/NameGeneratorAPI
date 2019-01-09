@@ -150,7 +150,7 @@ def main(name_num, input_one, input_two, input_three, output):
     name_list = []
 
     # Loop until a unique name has been created
-    while len(name_list) < name_num:
+    while name_num > len(name_list):
         dictionary = nth_order_markov(2, text_list)
         first_letter = start_tokens(dictionary)
         markov_list = create_name(first_letter, dictionary)
@@ -158,10 +158,12 @@ def main(name_num, input_one, input_two, input_three, output):
         first_name = "".join(markov_list).strip()
         # Check if name is match for any name in list; if so, start over
         # Name list contains the source names; ensures generated names are unique
-        if first_name in source_names:
+        if first_name in source_names or len(first_name) < 2:
+            print("name list: {}".format(name_list))
             print("duplicate name", first_name)
             continue
         else:
+            print("name list: {}".format(name_list))
             name_list.append(first_name)
     # Return the valid name
     print(name_list)
@@ -172,6 +174,6 @@ if __name__ == '__main__':
     # start_time = time.process_time()
 
     # pass in text files as first three values and output corpus file as fourth value
-    main(10, 'girl.txt', 'app_names.txt', 'modern.txt', 'corpus.txt')
+    main(10, 'masculine.txt', 'fantasy.txt', 'modern.txt', 'corpus.txt')
 
     # logger(start_time, 'markov_logger.txt')

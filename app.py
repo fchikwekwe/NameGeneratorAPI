@@ -16,11 +16,12 @@ def parse_json():
     params = request.get_json()
 
     # get the user's answers and add file extension
+    name_number = params['nameNumber']
     gender = params['gender'] + '.txt'
     cultural = params['cultural'] + '.txt'
     literary = params['literary'] + '.txt'
 
-    markov_name = markov.main(20, gender, cultural, literary, 'corpus.txt')
+    markov_name = markov.main(name_number, gender, cultural, literary, 'corpus.txt')
     return jsonify(name=markov_name)
 
 @app.route('/index')
