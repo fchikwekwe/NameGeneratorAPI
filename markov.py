@@ -87,15 +87,6 @@ def start_tokens(dictionary):
     token = random.choice(start_token_list)
     return token
 
-def stop_token(dictionary):
-    """ Get letters that have been seen ending a name before. """
-    stop_tokens = []
-    for key, value in dictionary.items():
-        # the key number must be changed depending on order number
-        if key[2].endswith('.') or key[2].endswith('?'):
-            stop_tokens.append(key)
-    return stop_tokens
-
 def list_names(text):
     """ Creates list of names that were in original list to check against
         so that the new name is not a duplicate of names that were in the
@@ -144,7 +135,7 @@ def logger(start_time, file):
 
     return 'hello'
 
-def main(input_one, input_two, input_three, output):
+def main(name_num, input_one, input_two, input_three, output):
     """ Takes in three text file names as first three parameters
         takes in output (corpus) file name as the final value
         defines variables and calls functions sequentially.
@@ -155,10 +146,11 @@ def main(input_one, input_two, input_three, output):
     corpus = make_source_text(input_one, input_two, input_three, output)
     clean_text = cleanup(corpus)
     text_list = tokenize(clean_text)
-    name_list = list_names(corpus)
+    source_names = list_names(corpus)
+    name_list = []
 
     # Loop until a unique name has been created
-    while True:
+    while len(name_list) < name_num:
         dictionary = nth_order_markov(2, text_list)
         first_letter = start_tokens(dictionary)
         markov_list = create_name(first_letter, dictionary)
@@ -166,19 +158,20 @@ def main(input_one, input_two, input_three, output):
         first_name = "".join(markov_list).strip()
         # Check if name is match for any name in list; if so, start over
         # Name list contains the source names; ensures generated names are unique
-        if first_name in name_list:
+        if first_name in source_names:
             print("duplicate name", first_name)
             continue
-
-        # Return the valid name
-        print(repr(first_name))
-        return first_name
+        else:
+            name_list.append(first_name)
+    # Return the valid name
+    print(name_list)
+    return name_list
 
 
 if __name__ == '__main__':
     # start_time = time.process_time()
 
     # pass in text files as first three values and output corpus file as fourth value
-    main('girl.txt', 'app_names.txt', 'modern.txt', 'corpus.txt')
+    main(10, 'girl.txt', 'app_names.txt', 'modern.txt', 'corpus.txt')
 
     # logger(start_time, 'markov_logger.txt')
