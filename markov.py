@@ -159,14 +159,12 @@ def main(name_num, input_one, input_two, input_three, output):
         # Check if name is match for any name in list; if so, start over
         # Name list contains the source names; ensures generated names are unique
         if first_name in source_names or len(first_name) < 2:
-            print("name list: {}".format(name_list))
             print("duplicate name", first_name)
             continue
         else:
-            print("name list: {}".format(name_list))
+            # Add valid names to name list
             name_list.append(first_name)
-    # Return the valid name
-    print(name_list)
+    # Return the list of valid names
     return name_list
 
 
