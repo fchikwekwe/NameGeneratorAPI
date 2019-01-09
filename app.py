@@ -3,13 +3,15 @@ from flask import Flask, request, render_template, jsonify, json
 
 app = Flask(__name__)
 
-
 @app.route('/', methods=['GET', 'POST'])
 def parse_json():
     """ takes in POST data as JSON from Node app and converts values to make
     them accessible to rest of Flask app """
     if request.method == 'GET': # only executed with HTTP GET requests
-        return "Please send a POST request to use this application."
+        return """Please send a POST request to use this application.
+                For additional tips on use of this API, documentation can be
+                found at: https://github.com/fchikwekwe/name-ly-API.
+                """
 
     params = request.get_json()
 
