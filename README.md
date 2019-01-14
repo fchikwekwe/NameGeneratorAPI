@@ -9,10 +9,9 @@ I'll take your through a short quiz and give you a list of awesome, unique names
 If you need names or words generated through a Markov model, this microservice might be able to help. Currently, it produces names and it takes in four parameters: 'nameNumber' 'gender', 'culture' and 'literary'. These are named for the types of influences requested of the user in their submitted form.  
 
 ### 'nameNumber'
-This parameter is an integer. It describes the number of names produced every time the API is run. Please be aware that while I work on more efficient scaling, the app moves very slowly if you request more than 100 names.
-
+This parameter is an integer. It describes the number of names produced every time the API is run. Please be aware that while I work on more efficient scaling the app works more slowly the more values that you request at once.
 ### 'gender'
-This parameter is a string. It takes 'feminine', 'masculine' or 'unisex' as input. It only takes one value at a time. Any other values will result in a 500 error.
+This parameter is a string. It takes 'feminine', 'masculine' or 'unisex' as input. It only takes one value at a time. Any other value will result in a 500 error.
 
 ### 'culture'
 This parameter is a string. It takes 'American', 'German' or 'Latin' as input. It only takes in one value at a time. Any other value will result in a 500 error.
@@ -37,7 +36,10 @@ To see the kinds of results that this API generates, check out https://name-ly-a
 
 To run the app locally, after cloning this repo and running your virtual environment the app can be viewed at http://127.0.0.1:5000/api or http://127.0.0.1:5000/index to see JSON or a web template respectively.
 
+## Hosting
+This shipped version of the API is currently hosted on Heroku. When you first ping the API, it may take up to 30 seconds for the first result as the app wakes up its service worker. Subsequent pings should not experience any delays.
+
 ## Testing
-[WIP] This API uses Pytest for testing.
+[WIP] Coming soon.
 
 #### Contributor(s): Faith Chikwekwe 👩🏾‍💻 Please feel free to reach out or open an issue if you have any questions.
