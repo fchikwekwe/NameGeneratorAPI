@@ -20,8 +20,17 @@ This parameter is a string. It takes 'American', 'German' or 'Latin' as input. I
 ### 'literary'
 This parameter is a string. It takes 'modern', 'classic' or 'fantasy' as input. It only takes in one value at a time. Any other value will result in a 500 error.
 
-## Using the API
-To use the api, you can send a POST request (e.g. with POSTMAN, as a query string) to the root route (http://127.0.0.1:5000) as JSON. In the name-ly app, a POST request is sent via Axios from the Node application.
+## Getting Started
+To use the api, you can send a POST request (e.g. with POSTMAN, as a query string) to the root route (http://127.0.0.1:5000 or https://name-ly-api.herokuapp.com/) as JSON. In the name-ly app, a POST request is sent via Axios from the Node application as demonstrated below.
+```
+axios.post('https://name-ly-api.herokuapp.com/', {
+                    nameNumber: 10,
+                    gender: quiz.gender.toLowerCase(),
+                    cultural: quiz.cultural.toLowerCase(),
+                    literary: quiz.literary.toLowerCase(),
+                })
+```
+Full controller with axios post request can be viewed here: https://github.com/fchikwekwe/name-ly/blob/master/controllers/quizzes.js.
 
 ## Demonstration
 To see this API at work, check out https://name-ly-api.herokuapp.com/api for JSON values or https://name-ly-api.herokuapp.com/index for a web template with results.
@@ -31,4 +40,4 @@ To run the app locally, after cloning this repo and running your virtual environ
 ## Testing
 [WIP] This API uses Pytest for testing.
 
-#### Contributor(s): Faith Chikwekwe 👩🏾‍💻 Please feel free to reach out or open an issue if you have any questions. 
+#### Contributor(s): Faith Chikwekwe 👩🏾‍💻 Please feel free to reach out or open an issue if you have any questions.
