@@ -30,10 +30,10 @@ axios.post('https://name-ly-api.herokuapp.com/', {
                     literary: quiz.literary.toLowerCase(),
                 })
 ```
-Full controller with axios post request can be viewed here: https://github.com/fchikwekwe/name-ly/blob/master/controllers/quizzes.js.
+Full controller with Axios post request can be viewed here: https://github.com/fchikwekwe/name-ly/blob/master/controllers/quizzes.js.
 
 ## Demonstration
-To see this API at work, check out https://name-ly-api.herokuapp.com/api for JSON values or https://name-ly-api.herokuapp.com/index for a web template with results.
+To see the kinds of results that this API generates, check out https://name-ly-api.herokuapp.com/api for JSON values or https://name-ly-api.herokuapp.com/index for a web template with results.
 
 To run the app locally, after cloning this repo and running your virtual environment the app can be viewed at http://127.0.0.1:5000/api or http://127.0.0.1:5000/index to see JSON or a web template respectively.
 
