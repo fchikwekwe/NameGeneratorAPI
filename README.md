@@ -24,9 +24,9 @@ To use the api, you can send a POST request (e.g. with POSTMAN, as a query strin
 ```
 axios.post('https://name-ly-api.herokuapp.com/', {
                     nameNumber: 10,
-                    gender: quiz.gender.toLowerCase(),
-                    cultural: quiz.cultural.toLowerCase(),
-                    literary: quiz.literary.toLowerCase(),
+                    gender: 'unisex',
+                    cultural: 'german',
+                    literary: 'fantasy',
                 })
 ```
 Full controller with Axios post request can be viewed here: https://github.com/fchikwekwe/name-ly/blob/master/controllers/quizzes.js.
