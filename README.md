@@ -6,7 +6,7 @@ Welcome to Name-ly! Yes, this app generated its own name!
 I'll take your through a short quiz and give you a list of awesome, unique names. Whether you're at a loss while creating a Dungeons and Dragons character, or if you're looking for some unique options to name your child, give it a try at https://name-ly.herokuapp.com/.
 
 ## Name-ly API
-If you need names or words generated through a Markov model, this microservice might be able to help. Currently, it produces names and it takes in four parameters: 'nameNumber' 'gender', 'culture' and 'literary'. These are named for the types of influences requested of the user in their submitted form.  
+If you need names or words generated through a Markov model, this microservice might be able to help. Currently, it produces names and it takes in four parameters: 'nameNumber', 'gender', 'culture' and 'literary'. These are named for the types of influences requested of the user in their submitted form.  
 
 ### 'nameNumber'
 This parameter is an integer. It describes the number of names produced every time the API is run. Please be aware that while I work on more efficient scaling the app works more slowly the more values that you request at once.
